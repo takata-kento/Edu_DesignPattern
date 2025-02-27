@@ -1,6 +1,9 @@
 package com.example.edu_design_pattern;
 
 
+import com.example.edu_design_pattern.active_object.ActiveObjectEngine;
+import com.example.edu_design_pattern.active_object.DelayedTyperCommand;
+import com.example.edu_design_pattern.active_object.SleepCommand;
 import com.example.edu_design_pattern.command.HourlyClassification;
 import com.example.edu_design_pattern.command.PayClassification;
 import com.example.edu_design_pattern.command.SalariedClassification;
@@ -19,5 +22,14 @@ public class Main {
 
 		List<Integer> employeePays = employeeClassifications.stream().map(PayClassification::calculatePay).toList();
 		employeePays.forEach(System.out::println);
+
+		System.out.println("======Active Objectパターン======");
+		ActiveObjectEngine engine = new ActiveObjectEngine();
+		engine.addCommand(new DelayedTyperCommand(100, '1', engine));
+		engine.addCommand(new DelayedTyperCommand(300, '3', engine));
+		engine.addCommand(new DelayedTyperCommand(500, '5', engine));
+		engine.addCommand(new DelayedTyperCommand(700, '7', engine));
+		engine.addCommand(new SleepCommand(DelayedTyperCommand::stopExecute, engine, 20000));
+		engine.run();
 	}
 }
