@@ -4,6 +4,9 @@ package com.example.edu_design_pattern;
 import com.example.edu_design_pattern.active_object.ActiveObjectEngine;
 import com.example.edu_design_pattern.active_object.DelayedTyperCommand;
 import com.example.edu_design_pattern.active_object.SleepCommand;
+import com.example.edu_design_pattern.builder.RiskUser;
+import com.example.edu_design_pattern.builder.StandardUser;
+import com.example.edu_design_pattern.builder.User;
 import com.example.edu_design_pattern.command.HourlyClassification;
 import com.example.edu_design_pattern.command.PayClassification;
 import com.example.edu_design_pattern.command.SalariedClassification;
@@ -11,6 +14,9 @@ import com.example.edu_design_pattern.command.TimeCard;
 import com.example.edu_design_pattern.template_method.BubbleSorter;
 import com.example.edu_design_pattern.template_method.DoubleBubbleSorter;
 import com.example.edu_design_pattern.template_method.IntBubbleSorter;
+
+import static com.example.edu_design_pattern.builder.User.Cource.*;
+import static com.example.edu_design_pattern.builder.RiskUser.RiskCategory.*;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -45,5 +51,11 @@ public class Main {
 		sorterDouble.sort(doubleList);
 		Arrays.stream(intList).forEach(System.out::println);
 		Arrays.stream(doubleList).forEach(System.out::println);
+
+		System.out.println("======Builderパターン======");
+		StandardUser standardUser = new StandardUser.Builder().addCource(AUTOMOBILE).build();
+		RiskUser riskUser = new RiskUser.Builder(SMOKING).addCource(MEDIUM_MOTORCYCLE).addCource(LARGE_MOTORCYCLE).build();
+		List<User> userList = List.of(standardUser, riskUser);
+		userList.stream().forEach(System.out::println);
 	}
 }
