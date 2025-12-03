@@ -14,6 +14,7 @@ import com.example.edu_design_pattern.command.TimeCard;
 import com.example.edu_design_pattern.template_method.BubbleSorter;
 import com.example.edu_design_pattern.template_method.DoubleBubbleSorter;
 import com.example.edu_design_pattern.template_method.IntBubbleSorter;
+import com.example.edu_design_pattern.typesafe_heterogeneous_container.Favorites;
 
 import static com.example.edu_design_pattern.builder.User.Cource.*;
 import static com.example.edu_design_pattern.builder.RiskUser.RiskCategory.*;
@@ -33,14 +34,15 @@ public class Main {
 		List<Integer> employeePays = employeeClassifications.stream().map(PayClassification::calculatePay).toList();
 		employeePays.forEach(System.out::println);
 
-		System.out.println("======Active Objectパターン======");
-		ActiveObjectEngine engine = new ActiveObjectEngine();
-		engine.addCommand(new DelayedTyperCommand(100, '1', engine));
-		engine.addCommand(new DelayedTyperCommand(300, '3', engine));
-		engine.addCommand(new DelayedTyperCommand(500, '5', engine));
-		engine.addCommand(new DelayedTyperCommand(700, '7', engine));
-		engine.addCommand(new SleepCommand(DelayedTyperCommand::stopExecute, engine, 20000));
-		engine.run();
+		// 動作が重たいのでコメントアウトする
+		// System.out.println("======Active Objectパターン======");
+		// ActiveObjectEngine engine = new ActiveObjectEngine();
+		// engine.addCommand(new DelayedTyperCommand(100, '1', engine));
+		// engine.addCommand(new DelayedTyperCommand(300, '3', engine));
+		// engine.addCommand(new DelayedTyperCommand(500, '5', engine));
+		// engine.addCommand(new DelayedTyperCommand(700, '7', engine));
+		// engine.addCommand(new SleepCommand(DelayedTyperCommand::stopExecute, engine, 20000));
+		// engine.run();
 
 		System.out.println("======Template Methodパターン======");
 		BubbleSorter<Integer> sorterInt = new IntBubbleSorter();
@@ -57,5 +59,16 @@ public class Main {
 		RiskUser riskUser = new RiskUser.Builder(SMOKING).addCource(MEDIUM_MOTORCYCLE).addCource(LARGE_MOTORCYCLE).build();
 		List<User> userList = List.of(standardUser, riskUser);
 		userList.stream().forEach(System.out::println);
+	
+		System.out.println("======型安全な異種コンテナ======");
+		Favorites favorites = new Favorites();
+		favorites.putFavorite(String.class, "java");
+		favorites.putFavorite(Integer.class, 12345);
+		favorites.putFavorite(Class.class, Favorites.class);
+		String favoriteString = favorites.getFavorite(String.class);
+		int favoriteInt = favorites.getFavorite(Integer.class);
+		Class<?> favoriteFavorites = favorites.getFavorite(Class.class);
+	
+		System.out.println(favoriteString + " " + favoriteInt + " " + favoriteFavorites);
 	}
 }
