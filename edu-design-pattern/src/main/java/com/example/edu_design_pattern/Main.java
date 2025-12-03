@@ -11,6 +11,7 @@ import com.example.edu_design_pattern.command.HourlyClassification;
 import com.example.edu_design_pattern.command.PayClassification;
 import com.example.edu_design_pattern.command.SalariedClassification;
 import com.example.edu_design_pattern.command.TimeCard;
+import com.example.edu_design_pattern.strategy_enum.PayrollDay;
 import com.example.edu_design_pattern.template_method.BubbleSorter;
 import com.example.edu_design_pattern.template_method.DoubleBubbleSorter;
 import com.example.edu_design_pattern.template_method.IntBubbleSorter;
@@ -70,5 +71,9 @@ public class Main {
 		Class<?> favoriteFavorites = favorites.getFavorite(Class.class);
 	
 		System.out.println(favoriteString + " " + favoriteInt + " " + favoriteFavorites);
+
+		System.out.println("======型安全な異種コンテナ======");
+		PayrollDay monDay = PayrollDay.MONDAY;
+		System.out.println("Day of Week: " + monDay.toString() + " FEE: " + Integer.valueOf(monDay.pay(100_000, 3)));
 	}
 }
