@@ -16,13 +16,17 @@ import com.example.edu_design_pattern.template_method.BubbleSorter;
 import com.example.edu_design_pattern.template_method.DoubleBubbleSorter;
 import com.example.edu_design_pattern.template_method.IntBubbleSorter;
 import com.example.edu_design_pattern.typesafe_heterogeneous_container.Favorites;
+import com.example.edu_design_pattern.unmodifiable_enumset.Text;
 
 import static com.example.edu_design_pattern.builder.User.Cource.*;
 import static com.example.edu_design_pattern.builder.RiskUser.RiskCategory.*;
 
+import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
 	public static void main(String[] args) {
@@ -75,5 +79,11 @@ public class Main {
 		System.out.println("======型安全な異種コンテナ======");
 		PayrollDay monDay = PayrollDay.MONDAY;
 		System.out.println("Day of Week: " + monDay.toString() + " FEE: " + Integer.valueOf(monDay.pay(100_000, 3)));
+	
+		System.out.println("======イミュータブルなEnumSetの検討======");
+		Text text = new Text();
+		text.setStyle(EnumSet.of(Text.Style.BOLD, Text.Style.ITALIC));
+		Set<Text.Style> styles = text.getStyles();
+		System.out.println(styles);
 	}
 }
